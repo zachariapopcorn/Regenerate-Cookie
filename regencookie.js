@@ -1,14 +1,15 @@
 const roblox = require('noblox.js');
 const fs = require('fs');
+require('dotenv').config();
 
 exports.run = async (client, message, args) => {
-    if(message.author.id != "465362236693807115") {
+    if(message.author.id != "DISCORD ID HERE") {
         return message.channel.send("You don't have permission to run this command!");
     }
     if(message.channel.type !== "dm") {
         return message.channel.send("This command only works in DMS!");
     }
-    let cookie = client.config.cookie;
+    let cookie = process.env.cookie;
     let isValidCookie = true;
     try {
         await roblox.setCookie(cookie);
@@ -37,14 +38,7 @@ exports.run = async (client, message, args) => {
     } catch (err) {
         return message.channel.send("There was an error while getting a new cookie: " + err);
     }
-    client.config.cookie = jar.session;
+    process.env.cookie = jar.session;
     roblox.setCookie(jar.session);
-    let configFile = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
-    configFile.cookie = jar.session;
-    fs.writeFile('./config.json', JSON.stringify(configFile), (err) => {
-        if(err) {
-            return message.channel.send("There was an error while writing the cookie to the config file: " + err);
-        }
-    });
-    return message.channel.send('Successfully regenerated the cookie!');
+    return message.channel.send("I have set the session's cookie to the working cookie, which means that the env file cookie is still the same. If you want to update that, please set the cookie value to " + jar.session);
 }

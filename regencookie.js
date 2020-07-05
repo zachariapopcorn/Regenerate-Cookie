@@ -40,5 +40,5 @@ exports.run = async (client, message, args) => {
     }
     process.env.cookie = jar.session;
     roblox.setCookie(jar.session);
-    return message.channel.send("I have set the session's cookie to the working cookie, which means that the env file cookie is still the same. If you want to update that, please set the cookie value to " + jar.session);
+    return message.author.send("I have set the session's cookie to the working cookie, which means that the env file cookie is still the same. If you want to update that, please set the cookie value to " + jar.session);
 }

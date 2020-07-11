@@ -1,5 +1,4 @@
 const roblox = require('noblox.js');
-const fs = require('fs');
 require('dotenv').config();
 
 exports.run = async (client, message, args) => {
@@ -20,7 +19,7 @@ exports.run = async (client, message, args) => {
         return message.channel.send("The cookie that is currently being used is a valid one!");
     }
     if(!args[0]) {
-        return message.client.send("Please insert a username!");
+        return message.channel.send("Please insert a username!");
     }
     try {
         await roblox.getIdFromUsername(args[0]);
@@ -40,5 +39,5 @@ exports.run = async (client, message, args) => {
     }
     process.env.cookie = jar.session;
     roblox.setCookie(jar.session);
-    return message.author.send("I have set the session's cookie to the working cookie, which means that the env file cookie is still the same. If you want to update that, please set the cookie value to " + jar.session);
+    return message.channel.send("I have set the session's cookie to the working cookie, which means that the env file cookie is still the same. If you want to update that, please set the cookie value to " + jar.session);
 }
